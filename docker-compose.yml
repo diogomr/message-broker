@@ -10,9 +10,21 @@ services:
     depends_on:
       - mongodb
 
-  helper:
+  consumers:
     build:
       context: ./helper
+    environment:
+      - PROCESSES=10
+      - SCRIPT=./consumer.js
+      - SLEEP_INTERVAL_MS=500
+
+  producers:
+    build:
+      context: ./helper
+    environment:
+      - PROCESSES=10
+      - SCRIPT=./producer.js
+      - SLEEP_INTERVAL_MS=500
 
   mongodb:
     image: mongo
