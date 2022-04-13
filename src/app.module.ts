@@ -1,10 +1,23 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MessagesController } from './messages/messages.controller';
+import { MessagesService } from './messages/messages.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Message, MessageSchema } from './messages/message.schema';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    MongooseModule.forRoot('mongodb://mongodb/broker'),
+    MongooseModule.forFeature([
+        {
+          name: Message.name,
+          schema: MessageSchema,
+        },
+      ],
+    ),
+  ],
+  controllers: [MessagesController],
+  providers: [MessagesService],
 })
-export class AppModule {}
+
+export class AppModule {
+}
