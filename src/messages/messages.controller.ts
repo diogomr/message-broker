@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
 import { MessageDto } from './message.dto';
 import { MessagesService } from './messages.service';
 
@@ -8,6 +8,7 @@ export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {
   }
 
+  @HttpCode(201)
   @Post()
   process(@Body() message: MessageDto): Promise<void> {
     return this.messagesService.process(message).then(() => null);

@@ -3,10 +3,16 @@ import { MessagesController } from './messages/messages.controller';
 import { MessagesService } from './messages/messages.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Message, MessageSchema } from './messages/message.schema';
+import { environment } from './environments/environment';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://mongodb/broker'),
+    MongooseModule.forRootAsync({
+      useFactory: () => ({
+        uri: environment.dbURI,
+        dbName: 'broker',
+      }),
+    }),
     MongooseModule.forFeature([
         {
           name: Message.name,
