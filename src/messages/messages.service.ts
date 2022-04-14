@@ -14,18 +14,18 @@ export class MessagesService {
     const message: Message = {
       externalId: dto.id,
       payload: dto.payload,
-      status: Status.WAITING,
+      status: Status.QUEUED,
     };
     return new this.messageModel(message).save();
   }
 
   async retrieve(): Promise<MessageDocument> {
 
-    // Find oldest waiting message to keep processed order
+    // Find the oldest QUEUED message to keep processed order
     // Atomically change status to guarantee at-most-once retrieval
     return this.messageModel.findOneAndUpdate(
-      { status: Status.WAITING },
-      { status: Status.PROCESSED },
+      { status: Status.QUEUED },
+      { status: Status.CONSUMED },
       { sort: { 'createdAt': 1 } },
     );
   }

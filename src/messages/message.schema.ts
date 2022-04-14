@@ -22,8 +22,8 @@ export class Message {
 }
 
 export enum Status {
-  WAITING,
-  PROCESSED,
+  QUEUED,
+  CONSUMED,
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);
