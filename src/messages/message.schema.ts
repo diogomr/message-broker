@@ -6,7 +6,7 @@ export type MessageDocument = Message & Document;
 @Schema({ timestamps: true })
 export class Message {
   @Prop()
-  externalId: string;
+  externalId: string; // TODO add unique constraint on a real scenario
 
   @Prop({ type: Object })
   payload: object;

@@ -10,7 +10,7 @@ export class MessagesService {
   constructor(@InjectModel(Message.name) private messageModel: Model<MessageDocument>) {
   }
 
-  async process(dto: MessageDto): Promise<MessageDocument> {
+  async process(dto: MessageDto): Promise<Message> {
     const message: Message = {
       externalId: dto.id,
       payload: dto.payload,
@@ -19,7 +19,7 @@ export class MessagesService {
     return new this.messageModel(message).save();
   }
 
-  async retrieve(): Promise<MessageDocument> {
+  async retrieve(): Promise<Message> {
 
     // Find the oldest QUEUED message to keep processed order
     // Atomically change status to guarantee at-most-once retrieval
