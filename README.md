@@ -38,5 +38,5 @@ docker-compose up producers
 
 # Run consumers that will read messages from the broker 
 # The number of consumers is configurable through ENV variable PROCESSES
-docker-compose up producers
+docker-compose up consumers
 ```
